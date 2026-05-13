@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Outfit Maker</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --btn-color: #2e2e2e;
+            --btn-border: #383838;
+            --btn-hover-color: #8d8d8d;
+            --btn-hover-border: #828282;
+        }
+
+        [data-theme="dark"] {
+            --bg: #392f20;
+            --btn-color: #aaaaaa;
+            --btn-border: #777777;
+            --btn-hover-color: #ffffff;
+            --btn-hover-border: #ffffff;
+        }
+
+        body {
+            font-family: 'IBM Plex Mono', monospace;
+            background-color: var(--bg);
+            color: var(--text);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+
+        header {
+            color: rgb(150, 135, 114);
+            z-index: 1;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 2px;
+        }
+
+        h1 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 30px;
+            font-size: 30px;
+            font-weight: 600;
+            letter-spacing: 0.002em;
+        }
+
+        .main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 110px;
+        }
+
+        .slider-block {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .slider-window {
+            width: 300px;
+            overflow: hidden;
+        }
+
+        .slider-track {
+            display: flex;
+            transition: transform 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .slider-track img {
+            width: 300px;
+            height: auto;
+            flex-shrink: 0;
+            display: block;
+        }
+
+        .btn {
+            padding: 8px 18px;
+            border: 1px solid var(--btn-border);
+            color: var(--btn-color);
+            background: transparent;
+            font-family: 'IBM Plex Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+            transition: color 0.2s, border-color 0.2s;
+        }
+
+        .btn:hover {
+            color: var(--btn-hover-color);
+            border-color: var(--btn-hover-border);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Outfit Maker</h1>
+        <img class="svg" src="icons/moon-svgrepo-com.svg" alt="Toggle Theme"
+            style="position: absolute; right: 20px; top: 5px; width: 45px; height: 45px; cursor: pointer;">
+    </header>
+
+    <div class="main">
+
+        <div class="slider-block">
+            <button class="btn" onclick="slideSweater(-1)">PREV</button>
+            <div class="slider-window">
+                <div class="slider-track" id="sweater-track">
+                    <img src="/jackets/18 EDITED.webp" alt="">
+                    <img src="/jackets/CT-01-LIGHT-GREEN-1.webp" alt="">
+                    <img src="/jackets/image-1.webp" alt="">
+                    <img src="/jackets/JC-10-BLACK-1.webp" alt="">
+                    <img src="/jackets/MENS RESIZED-126.webp" alt="">
+                </div>
+            </div>
+            <button class="btn" onclick="slideSweater(1)">NEXT</button>
+        </div>
+
+        <div class="slider-block">
+            <button class="btn" onclick="slidePants(-1)">PREV</button>
+            <div class="slider-window">
+                <div class="slider-track" id="pants-track">
+                    <img src="/pants/41.webp" alt="">
+                    <img src="/pants/MENS RESIZED-90.webp" alt="">
+                    <img src="/pants/MENS RESIZED-5.webp" alt="">
+                </div>
+            </div>
+            <button class="btn" onclick="slidePants(1)">NEXT</button>
+        </div>
+
+    </div>
+
+    <script>
+        let sweaterIndex = 0;
+        const sweaterTotal = 5;
+        const btn = document.querySelector('.svg');
+        btn.addEventListener('click', () => {
+            console.log('clicked');
+            const isDark = document.documentElement.dataset.theme === 'dark';
+            document.documentElement.dataset.theme = isDark ? '' : 'dark';
+            btn.src = isDark ? 'icons/moon-svgrepo-com.svg' : 'icons/sun-svgrepo-com (2).svg';
+        });
+
+        let pantsIndex = 0;
+        const pantsTotal = 2;
+
+        function slideSweater(dir) {
+            sweaterIndex = (sweaterIndex + dir + sweaterTotal) % sweaterTotal;
+            document.getElementById('sweater-track').style.transform =
+                `translateX(-${sweaterIndex * 300}px)`;
+        }
+
+        function slidePants(dir) {
+            pantsIndex = (pantsIndex + dir + pantsTotal) % pantsTotal;
+            document.getElementById('pants-track').style.transform =
+                `translateX(-${pantsIndex * 300}px)`;
+        }
+    </script>
+</body>
+
+</html>
