@@ -27,6 +27,7 @@
             --btn-border: #777777;
             --btn-hover-color: #ffffff;
             --btn-hover-border: #ffffff;
+            --svg-hover-bg: #ffffff75;
         }
 
         body {
@@ -56,6 +57,18 @@
             font-size: 30px;
             font-weight: 600;
             letter-spacing: 0.002em;
+        }
+
+        .svg {
+            transition: filter 0.3s;
+            border-radius: 20%;
+            margin-top: 20px;
+            margin-right: 40px;
+        }
+
+        .svg:hover {
+            filter: brightness(1.2);
+            background-color: #38383875;
         }
 
         .main {
